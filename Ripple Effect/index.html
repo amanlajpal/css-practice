@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="ripple"></div>
+</body>
+</html>
+
+
+<style>
+    .ripple{
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        transform: scale(0);
+        background: #00000067;
+        border-radius: 50%;
+        position: fixed;
+        z-index: 1111;
+    }
+    .animate{
+        animation: ripple-mo 1s cubic-bezier(0,0,0.2,1);
+    }
+    @keyframes ripple-mo {
+        0%{
+            transform: scale(0);
+            opacity: 1;
+        }
+        100%{
+            transform: scale(10);
+            opacity: 0;
+        }
+    }
+</style>
+
+<script>
+    var drawRipple = function (ev) {
+        var node = document.querySelector(".ripple")
+        var newNode = node.cloneNode(true);
+        newNode.classList.add("animate");
+        newNode.style.left = ev.clientX - 5 + "px";
+        newNode.style.top = ev.clientY -5 + "px";
+        node.parentElement.replaceChild(newNode, node);
+    };
+    window.addEventListener("click",drawRipple);
+</script>
